@@ -1,17 +1,5 @@
-import { Component } from '@angular/core';
-
-export enum Condition { NEW, USED, DISCONTINUED}
-export enum Category { LAPTOP, PC}
-
-export class Product{
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  condition: Condition;
-  category: Category;
-}
-
+import { Component  } from '@angular/core';
+import { Product, Condition, Category } from "./product"
 //List of products
 const PRODUCTS: Product[] = [
   {   id: 1, name: 'Acer Laptop', description: 'Core i7 8 GB RAM Solid State HD 250',
@@ -24,8 +12,6 @@ const PRODUCTS: Product[] = [
       price: 500, condition: Condition.NEW, category: Category.LAPTOP }
 ];
 
-
-
 @Component({
   selector: 'app-root',
   template: `<h1>{{title}}</h1>
@@ -37,16 +23,8 @@ const PRODUCTS: Product[] = [
         <span class="badge">{{ prod.id }}</span> {{ prod.name }}
       </li>
     </ul>
-<div *ngIf="selectedProduct">
-  <h2>{{selectedProduct.name}}</h2>
-    <label>Name</label>
-    <input [(ngModel)]="selectedProduct.name" placeholder="name">
-    <div><label>Id:</label>{{selectedProduct.id}}</div>
-    <div><label>Description::</label>{{selectedProduct.description}}</div>
-    <div><label>Price:</label>{{selectedProduct.price}}</div>
-    <div><label>Condition:</label>{{selectedProduct.condition}}</div>
-    <div><label>Category:</label>{{selectedProduct.category}}</div>
-</div>    
+    <product-detail [product]="selectedProduct"></product-detail>
+  
   `,
   styles: [`
   .selected {
@@ -97,11 +75,12 @@ const PRODUCTS: Product[] = [
     border-radius: 4px 0 0 4px;
   }
 `]
-})
+}) 
 export class AppComponent {
   title = 'My Products';
   products = PRODUCTS;
   selectedProduct: Product;
+ 
   onSelect(product: Product): void {
     this.selectedProduct = product;
   }

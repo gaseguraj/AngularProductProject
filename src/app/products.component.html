@@ -1,0 +1,13 @@
+<ul class="products">
+    <li *ngFor="let prod of products"
+    (click)="onSelect(prod)"
+    [class.selected]="prod === selectedProduct">
+      <span class="badge">{{ prod.id }}</span> {{ prod.name }}
+    </li>
+  </ul>
+  <div *ngIf="selectedProduct">
+    <h2>
+      {{selectedProduct.name | uppercase}} is my product
+    </h2>
+    <button (click)="goToDetail()">View Details</button>
+  </div>
